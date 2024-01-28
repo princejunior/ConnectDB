@@ -14,16 +14,3 @@ struct DataTypes: Identifiable, Decodable {
     var description: String
 //    var status: String
 }
-//
-//struct DataTypes : Identifiable {
-////    var id : String
-////    var name : String
-////    var image : String
-////    var age : String
-////    var status : String
-//    var id : String
-//    var title : String
-//    var image : String
-//    var description : String
-//    var status : String
-//}
