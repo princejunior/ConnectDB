@@ -6,13 +6,60 @@
 //
 
 import SwiftUI
+import Firebase
+import SDWebImageSwiftUI
 
 struct DisplayView: View {
+    @ObservedObject var obser = observer()
+//    @ObservedObject var obser = content()
+    @Binding var showSignInView: Bool
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        NavigationView {
+            List {
+                ForEach(obser.users) { i in
+                    NavigationLink(destination: Details(userItem: i)) {
+                        HStack {
+//                            AnimatedImage(url: URL(string: i.image)).resizable().frame(width: 60, height: 60).clipShape(Circle()).shadow(radius: 20)
+                            Text(i.title).padding(.leading, 10) // Assuming 'name' is a property of ContentType
+                        }
+                    }
+                }
+            }
+
+//            List (obser.users) { i in
+//                NavigationLink(destination: Details(userItem: i)) {
+//                    HStack {
+//                        AnimatedImage(url: URL(string: i.image)).resizable().frame(width: 60,height: 60).clipShape(Circle()).shadow(radius: 20)
+//                        Text(i.name).padding(.leading, 10)
+//                    }
+//                }
+//            }
+        }
+        .navigationTitle("Display")
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                NavigationLink {
+                    UploadView()
+                } label: {
+                    Image(systemName: "plus")
+                        .font(.headline)
+                    }
+            }
+        }
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                NavigationLink {
+                    SettingsView(showSignInView: $showSignInView)
+                } label: {
+                    Image(systemName: "gear")
+                        .font(.headline)
+                }
+            }
+        }
     }
 }
 
 #Preview {
-    DisplayView()
+    DisplayView(showSignInView: .constant(false))
 }

@@ -7,12 +7,41 @@
 
 import SwiftUI
 
+
+
 struct ProfileView: View {
+    
+    @StateObject private var viewModel = ProfileViewModel()
+    
+    @Binding var showSignInView: Bool
+    
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        
+        List {
+            if let user = viewModel.user {
+                Text("UserId: \(user.uid)")
+            }
+        }
+        .onAppear {
+           try? viewModel.loadCurrentUser()
+        }
+        .navigationTitle("Profile")
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                NavigationLink {
+                    SettingsView(showSignInView: $showSignInView)
+                } label: {
+                    Image(systemName: "gear")
+                        .font(.headline)
+                }
+            }
+        }
     }
 }
 
 #Preview {
-    ProfileView()
+    NavigationStack {
+        ProfileView(showSignInView: .constant(false))
+    }
 }

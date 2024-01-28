@@ -6,13 +6,28 @@
 //
 
 import SwiftUI
+import SDWebImageSwiftUI
 
 struct Details: View {
+    
+    let userItem : DataTypes
+
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        GeometryReader { geo in
+            VStack {
+                Text("Username : \(userItem.title)")
+                    .font(.title)
+                
+                AnimatedImage(url: URL(string: userItem.image))
+                    .resizable().frame(height:geo.size.height - 100)
+                    .padding(.horizontal, 15)
+                    .cornerRadius(20)
+            }
+        }
     }
 }
 
-#Preview {
-    Details()
-}
+//#Preview {
+//    Details(userItem: DataTypes)
+//}

@@ -7,40 +7,9 @@
 
 import SwiftUI
 
-@MainActor
-final class SignInEmailViewModel: ObservableObject {
-    @Published var email = ""
-    @Published var password = ""
-    
-    func signIn() async throws{
-        guard !email.isEmpty, !password.isEmpty else {
-            print("No email or password found.")
-            return
-        }
-        let returnUserData = try await AuthenticationManager.shared.signInUser(email: email, password: password)
-//        When task is in use it doesn't need async throws
-//        Task {
-//            do {
-//                let returnUserData = try await AuthenticationManager.shared.createUser(email: email, password: password)
-//                print("Success")
-//                print(returnUserData)
-//            } catch {
-//                print("Erro: \(error)")
-//            }
-//        }
-        
-    }
-    func signUp() async throws{
-        guard !email.isEmpty, !password.isEmpty else {
-            print("No email or password found.")
-            return
-        }
-        let returnUserData = try await AuthenticationManager.shared.createUser(email: email, password: password)
-    }
-}
-
 struct SignInEmailView: View {
     @StateObject private var viewModel = SignInEmailViewModel()
+    @StateObject private var authViewModel = AuthenticationViewModel()
     @Binding var showSignInView: Bool
     
     var body: some View {
@@ -58,6 +27,7 @@ struct SignInEmailView: View {
                 Task {
                     do {
                         try await viewModel.signUp()
+                       
                         showSignInView = false
                         return
                     } catch {
