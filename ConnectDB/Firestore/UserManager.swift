@@ -9,34 +9,35 @@ import Foundation
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 
+// Manager class for handling user-related operations
 final class UserManager {
     
-//    @Published var users = [DataTypes]()
+    // Singleton instance for shared access
     static let shared = UserManager()
     
+    // Initialize the user manager and fetch initial user data from Firestore
     init() {
         let db = Firestore.firestore()
-        db.collection("users").getDocuments { (snap,err) in
-            
+        db.collection("users").getDocuments { (snap, err) in
+            // Handle the fetched user documents if needed
+            // Currently, it does not perform any specific actions
         }
     }
-//    profile
     
-    func createNewUser(auth: AuthDataResultModel) async throws{
-        var userData: [String:Any] = [
-            "user_id" : auth.uid,
-//            "is_anonymous": auth.isAnonymous,
-            "data_created" : Timestamp(),
+    // Create a new user in Firestore based on the provided AuthDataResultModel
+    func createNewUser(auth: AuthDataResultModel) async throws {
+        // Prepare user data to be stored in Firestore
+        var userData: [String: Any] = [
+            "user_id": auth.uid,
+            "data_created": Timestamp(),
         ]
+        
+        // Add optional user information if available
         if let email = auth.email {
             userData["email"] = email
         }
-//        if let url = auth.photoUrl {
-//            userData["photo_url"] = photoUrl
-//        }
         
+        // Attempt to set user data in Firestore
         try await Firestore.firestore().collection("users").document(auth.uid).setData(userData, merge: false)
     }
-    
-    
 }

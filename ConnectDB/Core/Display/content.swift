@@ -8,32 +8,39 @@ import Foundation
 import SwiftUI
 import Firebase
 
-class content : ObservableObject {
-//    @Published var users =
+// Observable object for managing user content
+class content: ObservableObject {
+    // Published property to store an array of ContentType
     @Published var users = [ContentType]()
     
+    // Singleton instance for shared access
     static let shared = UserManager()
     
+    // Initializer to fetch user content from Firestore
     init() {
+        // Access Firestore
         let db = Firestore.firestore()
-        db.collection("users").getDocuments { (snap,err) in
-            if err != nil {
-                print((err?.localizedDescription)!)
+        
+        // Query the "users" collection
+        db.collection("users").getDocuments { (snap, err) in
+            // Check for errors
+            if let error = err {
+                print("Error fetching documents: \(error.localizedDescription)")
+                return
             }
             
-            for i in snap!.documents {
-                let title = i.get("name") as! String
-        
-                let image = i.get("image") as! String
-                let id = i.documentID
-                let description = i.get("description") as! String
-                let status = i.get("status") as! String
-                if image == "" {
-                    let image = ""
-                }
-                self.users.append(ContentType(id:id, title:title, image:image, description: description, status: status))
+            // Iterate through the documents in the snapshot
+            for document in snap!.documents {
+                // Extract user data from Firestore document
+                let id = document.documentID
+                let title = document.get("name") as! String
+                let image = document.get("image") as? String ?? ""
+                let description = document.get("description") as! String
+                let status = document.get("status") as! String
+                
+                // Create a ContentType object and add it to the users array
+                self.users.append(ContentType(id: id, title: title, image: image, description: description, status: status))
             }
         }
     }
-    
 }
