@@ -19,10 +19,10 @@ struct Details: View {
                 Text("Username : \(userItem.title)")
                     .font(.title)
                 
-                AnimatedImage(url: URL(string: userItem.image))
-                    .resizable().frame(height:geo.size.height - 100)
-                    .padding(.horizontal, 15)
-                    .cornerRadius(20)
+//                AnimatedImage(url: URL(string: userItem.image))
+//                    .resizable().frame(height:geo.size.height - 100)
+//                    .padding(.horizontal, 15)
+//                    .cornerRadius(20)
             }
         }
     }

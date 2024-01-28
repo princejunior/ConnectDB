@@ -201,11 +201,11 @@
 		1C5B163A2B64F1470079C0EA /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				1C5B16362B6482460079C0EA /* RootView.swift */,
 				1C8A86FD2B65C17B002C2704 /* Upload */,
 				1C8A86EB2B659F3B002C2704 /* Display */,
 				1C5B16422B64F2EF0079C0EA /* Profile */,
 				1C5B163E2B64F2070079C0EA /* Authentication */,
-				1C5B16362B6482460079C0EA /* RootView.swift */,
 				1C5B163B2B64F1880079C0EA /* Settings */,
 			);
 			path = Core;
