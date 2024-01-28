@@ -5,7 +5,7 @@ The software interacts with Firebase's authentication and Firestore.
 The functionalities also allow the user to sign up or log in, view uploaded content, and upload content themselves.
 The goal of this app is to grasp the fundamentals of iOS, laying the groundwork for a future, more advanced application.
 
-[Software Demo Video]([http://youtube.link.goes.here](https://www.youtube.com/watch?v=NsftkmrsIvc))
+[Software Demo Video](https://www.youtube.com/watch?v=NsftkmrsIvc)
 
 # Cloud Database
 
